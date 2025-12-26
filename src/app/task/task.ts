@@ -1,12 +1,32 @@
-import { Component } from '@angular/core';
-
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TaskService, Task } from './task.service';
 @Component({
   selector: 'app-task',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './task.html',
-  styleUrl: './task.css',
+  styleUrls: ['./task.css']
 })
-export class Task {
+export class TaskPage implements OnInit {
 
+  tasks: Task[] = [];
+  loading = true;
+  error = '';
+
+  constructor(private taskService: TaskService) {}
+
+  ngOnInit(): void {
+    this.taskService.getTasks().subscribe({
+      next: (data) => {
+        this.tasks = data;
+        this.loading = false;
+      },
+      error: (err) => {
+        this.error = 'Failed to load tasks';
+        this.loading = false;
+        console.error(err);
+      }
+    });
+  }
 }

@@ -8,7 +8,8 @@ import { Observable, take, tap } from 'rxjs';
 export class Auth {
   
   private apiUrl = "https://localhost:7142/api/auth";
-
+  private readonly tokenKey = 'auth_token';
+  
   constructor(private http:HttpClient) {}
 
   login(email: string, password: string){
@@ -17,9 +18,16 @@ export class Auth {
       password
     }).pipe(
       tap(Response => {
-        console.log('Storing token:', Response.token);
         localStorage.setItem('auth_token', Response.token);
       })
     );
+  }
+
+  logout(){
+    localStorage.removeItem(this.tokenKey);
+  }
+
+  isLoggedIn(): boolean{
+    return !!localStorage.getItem(this.tokenKey);
   }
 }
