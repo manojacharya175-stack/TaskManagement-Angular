@@ -1,4 +1,4 @@
-<nav style="display:flex; justify-content:space-between; padding:10px; border-bottom:1px solid #ccc;">
+<nav *ngIf="isLoggedIn" style="display:flex; justify-content:space-between; padding:10px; border-bottom:1px solid #ccc;">
   <span><strong>Task Management</strong></span>
   <button (click)="logout()">Logout</button>
 </nav>
