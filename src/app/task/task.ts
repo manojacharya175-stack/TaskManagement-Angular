@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TaskService, Task } from './task.service';
 @Component({
@@ -14,7 +14,7 @@ export class TaskPage implements OnInit {
   loading = true;
   error = '';
 
-  constructor(private taskService: TaskService) {}
+  private taskService = inject(TaskService);
 
   ngOnInit(): void {
     this.taskService.getTasks().subscribe({

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Auth } from '../core/auth/auth';
 import { Router } from '@angular/router';
@@ -16,9 +16,8 @@ export class Login {
   email = '';
   password = '';
 
-  constructor(private auth: Auth,
-    private router: Router
-  ){}
+  private auth = inject(Auth);
+  private router = inject(Router);
   
   onSubmit(){
     this.auth.login(this.email, this.password)

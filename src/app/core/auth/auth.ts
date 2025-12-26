@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';  
 import { Observable, take, tap } from 'rxjs';
 
@@ -10,7 +10,7 @@ export class Auth {
   private apiUrl = "https://localhost:7142/api/auth";
   private readonly tokenKey = 'auth_token';
   
-  constructor(private http:HttpClient) {}
+  private http = inject(HttpClient);
 
   login(email: string, password: string){
     return this.http.post<any>(`${this.apiUrl}/login`,{
